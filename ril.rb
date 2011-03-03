@@ -1,25 +1,31 @@
+require 'rubygems'
+require 'pit'
 require 'uri'
 require 'net/http'
 # http://rubyforge.org/snippet/detail.php?type=snippet&id=148
 require 'simplejsonparser'
 # require 'nkf'
 
-# ユーザ情報など読み込み
-file = open("init").read.split(",")
-USERNAME = file[0]
-PASSWORD = file[1]
-APIKEY = file[2]
-
 # RIL取得用のURL
 url = "https://readitlaterlist.com/v2/get"
 
-hash = {
-	# アカウント名とパスワード
-	"username" => USERNAME,
-	"password" => PASSWORD,
-	# apikey
-	"apikey" => APIKEY,
-}
+# ユーザ情報など読み込み
+hash = Pit.get("ril", :require => {
+ 	# アカウント名とパスワード
+	"username" => "your username",
+	"password" => "your password",
+ 	# apikey
+	"apikey" => "your apikey"
+})
+# pitを使わずにべた書き用
+# hash = {
+# 	# アカウント名とパスワード
+# 	"username" => USERNAME,
+# 	"password" => PASSWORD,
+# 	# apikey
+# 	"apikey" => APIKEY,
+# }
+
 # format json or xml
 hash["format"] = "json"
 
